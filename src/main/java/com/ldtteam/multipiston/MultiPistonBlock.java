@@ -1,6 +1,5 @@
 package com.ldtteam.multipiston;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.redstone.Orientation;
@@ -29,7 +28,6 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class MultiPistonBlock extends BaseEntityBlock
 {
-    public static final MapCodec<MultiPistonBlock> CODEC = simpleCodec(MultiPistonBlock::new);
 
     private static final float BLOCK_HARDNESS = 1.0F;
     private static final float RESISTANCE = 1.0F;
@@ -43,11 +41,6 @@ public final class MultiPistonBlock extends BaseEntityBlock
             .isRedstoneConductor((state, level, pos) -> true));
     }
 
-    @Override
-    protected MapCodec<MultiPistonBlock> codec()
-    {
-        return CODEC;
-    }
 
     @Override
     protected InteractionResult useWithoutItem(

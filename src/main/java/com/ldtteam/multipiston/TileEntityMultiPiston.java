@@ -117,9 +117,9 @@ public class TileEntityMultiPiston extends BlockEntity implements IRotatableBloc
 
         final BlockState blockToMove = level.getBlockState(worldPosition.relative(currentDirection, 1));
         final boolean blocked = blockToMove.getBlock() == Blocks.AIR
-            || blockToMove.getPistonPushReaction() == PushReaction.IGNORE
-            || blockToMove.getPistonPushReaction() == PushReaction.DESTROY
-            || blockToMove.getPistonPushReaction() == PushReaction.BLOCK
+            || blockToMove.getPistonPushReaction() == PushReaction.IGNORE_ENTITY
+            || blockToMove.getPistonPushReaction() == PushReaction.POPPED
+            || blockToMove.getPistonPushReaction() == PushReaction.IMMOVEABLE
             || blockToMove.getBlock() == Blocks.BEDROCK
             || (blockToMove.getBlock() instanceof EntityBlock
                 && !"domum_ornamentum".equals(BuiltInRegistries.BLOCK.getKey(blockToMove.getBlock()).getNamespace())
