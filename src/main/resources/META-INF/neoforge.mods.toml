@@ -1,0 +1,48 @@
+modLoader="javafml"
+loaderVersion="${fml_range}"
+license="GPL3"
+issueTrackerURL="https://github.com/ldtteam/Piston-Unlimited/issues"
+
+[[mods]]
+modId="multipiston"
+version="${file.jarVersion}"
+displayName="Multi-Piston"
+authors="LDT Team"
+description='''
+Multi-Piston adds a configurable piston block which can move blocks in any direction.
+'''
+
+[[dependencies.multipiston]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neoforge_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.multipiston]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.multipiston]]
+    modId="blockui"
+    type="required"
+    versionRange="[0.0.1,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.multipiston]]
+    modId="structurize"
+    type="required"
+    versionRange="[0.0.1,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.multipiston]]
+    modId="domum_ornamentum"
+    type="required"
+    versionRange="[1.0.0,)"
+    ordering="AFTER"
+    side="BOTH"

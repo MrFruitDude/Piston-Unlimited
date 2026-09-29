@@ -1,14 +1,11 @@
 package com.ldtteam.multipiston;
 
-import com.ldtteam.multipiston.network.Network;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-
-public class LifeCycleEvents
+/**
+ * Marker retained for the former common-setup lifecycle; payload registration now lives with the mod constructor.
+ */
+final class LifeCycleEvents
 {
-    @SubscribeEvent
-    public static void onModInit(final FMLCommonSetupEvent event)
+    private LifeCycleEvents()
     {
-        Network.getNetwork().registerCommonMessages();
     }
 }

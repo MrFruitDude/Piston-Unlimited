@@ -1,0 +1,21 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            url = uri("https://ldtteam.jfrog.io/artifactory/tableau/")
+            name = "Tableau"
+        }
+    }
+}
+
+plugins {
+    id "com.ldtteam.tableau" version "0.0.96-j21.0"
+    id "org.gradle.toolchains.foojay-resolver-convention" version "1.0.0"
+}
+
+rootProject.name = "multipiston"
+
+features {
+    usesGit = true
+    usesCurse = true
+}
