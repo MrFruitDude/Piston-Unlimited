@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SSS",
+    "R R",
+    "PPP"
+  ],
+  "key": {
+    "S": "minecraft:stone",
+    "R": "minecraft:redstone_block",
+    "P": "minecraft:piston"
+  },
+  "result": {
+    "id": "multipiston:multipistonblock",
+    "count": 1
+  }
+}
