@@ -2,6 +2,7 @@ package com.ldtteam.multipiston;
 
 import com.google.common.primitives.Ints;
 import com.ldtteam.structurize.api.util.IRotatableBlockEntity;
+import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -39,6 +41,8 @@ import static net.minecraft.core.Direction.UP;
  */
 public class TileEntityMultiPiston extends BlockEntity implements IRotatableBlockEntity
 {
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     public static final String TAG_INPUT = "input";
     public static final String TAG_RANGE = "range";
     public static final String TAG_DIRECTION = "direction";
@@ -180,16 +184,13 @@ public class TileEntityMultiPiston extends BlockEntity implements IRotatableBloc
             return;
         }
 
-        final TagValueOutput output = TagValueOutput.createWithContext(
-            ProblemReporter.DISCARDING,
-            source.getLevel().registryAccess()
-        );
-        source.saveWithFullMetadata(output);
-        target.loadWithComponents(TagValueInput.create(
-            ProblemReporter.DISCARDING,
-            source.getLevel().registryAccess(),
-            output.buildResult()
-        ));
+        // Report save/load problems of the moved block entity (logged at warn when the collector closes) instead of discarding them.
+        try (final ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(source.problemPath(), LOGGER))
+        {
+            final TagValueOutput output = TagValueOutput.createWithContext(reporter, source.getLevel().registryAccess());
+            source.saveWithFullMetadata(output);
+            target.loadWithComponents(TagValueInput.create(reporter, source.getLevel().registryAccess(), output.buildResult()));
+        }
         target.setChanged();
     }
 
