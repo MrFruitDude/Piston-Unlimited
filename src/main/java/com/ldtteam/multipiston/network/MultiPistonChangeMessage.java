@@ -31,6 +31,13 @@ public record MultiPistonChangeMessage(
     public static final Type<MultiPistonChangeMessage> ID =
         new Type<>(Identifier.fromNamespaceAndPath(MultiPiston.MOD_ID, "change_message"));
 
+    /**
+     * Extra reach beyond the player's block interaction range, the same buffer vanilla
+     * containers allow before closing (Container#stillValidBlockEntity). The window stays
+     * open while the player moves, so a packet from a few blocks further off is legitimate.
+     */
+    private static final double CONTAINER_REACH_BUFFER = 4.0D;
+
     public static final StreamCodec<RegistryFriendlyByteBuf, MultiPistonChangeMessage> CODEC =
         CustomPacketPayload.codec(MultiPistonChangeMessage::write, MultiPistonChangeMessage::read);
 
@@ -103,6 +110,7 @@ public record MultiPistonChangeMessage(
         final Level world = player.level();
         if (!(world instanceof final ServerLevel serverLevel)
             || !serverLevel.hasChunkAt(message.pos())
+            || !player.isWithinBlockInteractionRange(message.pos(), CONTAINER_REACH_BUFFER)
             || !player.mayInteract(serverLevel, message.pos()))
         {
             return;
